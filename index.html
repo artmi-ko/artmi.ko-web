@@ -20,9 +20,9 @@
 </head>
 <body class="overflow-x-hidden">
   <header class="p-4 bg-gradient-to-r from-purple-800 to-indigo-900 shadow-md fixed w-full z-10">
-    <div class="container mx-auto flex justify-between items-center">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
       <h1 class="text-xl font-bold">Artmi.ko</h1>
-      <nav class="space-x-4">
+      <nav class="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row items-center">
         <a href="#inicio" class="hover:text-pink-400 transition">Inicio</a>
         <a href="#modelos" class="hover:text-pink-400 transition">Portfolio</a>
         <a href="#sobre-mi" class="hover:text-pink-400 transition">Sobre mí</a>
@@ -86,14 +86,14 @@
 
     // Inicializar EmailJS con tu Public Key
     (function() {
-      emailjs.init("vODOsr3j6HkJ2eHys"); // ✅ Reemplaza con tu PUBLIC KEY si es otra
+      emailjs.init("vODOsr3j6HkJ2eHys");
     })();
 
     document.getElementById('contact-form').addEventListener('submit', function(event) {
       event.preventDefault();
       document.getElementById('respuesta').innerText = 'Enviando mensaje...';
 
-      emailjs.sendForm('service_avkk6rn', 'template_kyyah9q', this) // 🔁 Cambia 'service_xxxxxx' por tu SERVICE ID real
+      emailjs.sendForm('service_avkk6rn', 'template_kyyah9q', this)
         .then(function(response) {
           document.getElementById('respuesta').innerText = '¡Mensaje enviado con éxito! 😄';
           document.getElementById('contact-form').reset();
