@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artmi.ko - Inicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0f1a;
+      color: #f0f0f0;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+  <header class="p-4 bg-gradient-to-r from-purple-800 to-indigo-900 shadow-md fixed w-full z-10">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">Artmi.ko</h1>
+      <nav class="space-x-4">
+        <a href="#inicio" class="hover:text-pink-400 transition">Inicio</a>
+        <a href="#modelos" class="hover:text-pink-400 transition">Portfolio</a>
+        <a href="#sobre-mi" class="hover:text-pink-400 transition">Sobre mí</a>
+        <a href="#contacto" class="hover:text-pink-400 transition">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-24">
+    <!-- INICIO -->
+    <section id="inicio" class="text-center py-20" data-sr>
+      <h2 class="text-4xl font-bold mb-4">¡Bienvenid@!</h2>
+      <p class="text-lg max-w-2xl mx-auto">Aquí podreis explorar mis pequeños y grandes proyectos de modelado, texturizado y renderizado en 3D ✨</p>
+    </section>
+
+    <!-- MODELOS 3D -->
+    <section id="modelos" class="py-20 px-4" data-sr>
+      <h2 class="text-3xl font-bold text-center mb-8">Portfolio</h2>
+      <div class="tabs flex justify-center space-x-4 mb-6">
+        <button onclick="showTab('anime')" class="px-4 py-2 bg-purple-700 rounded hover:bg-purple-900">Todos los Props</button>
+        <button onclick="showTab('realista')" class="px-4 py-2 bg-purple-700 rounded hover:bg-purple-900">Para videojuegos</button>
+      </div>
+      <div class="tab-content active" id="anime">
+        <p class="text-center">Portfolio</p>
+      </div>
+      <div class="tab-content" id="realista">
+        <p class="text-center">Modelos creados para videojuegos.</p>
+      </div>
+    </section>
+
+    <!-- SOBRE MI -->
+    <section id="sobre-mi" class="py-20 px-4 bg-gray-900" data-sr>
+      <h2 class="text-3xl font-bold text-center mb-6">Sobre mí</h2>
+      <p class="max-w-3xl mx-auto text-center">Holaa, soy Pol, un apasionado Junior 3D Artist que utiliza el arte 3D para expresar sus ideas y todo aquello que le fascina plasmándolos en un entorno de 3 dimensiones.</p>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-20 px-4" data-sr>
+      <h2 class="text-3xl font-bold text-center mb-6">Contacto</h2>
+      <form class="max-w-xl mx-auto space-y-4" id="contact-form">
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" class="w-full px-4 py-2 rounded bg-gray-800 text-white" required>
+        <input type="email" id="email" name="email" placeholder="Tu correo" class="w-full px-4 py-2 rounded bg-gray-800 text-white" required>
+        <textarea id="mensaje" name="mensaje" placeholder="Tu mensaje" class="w-full px-4 py-2 rounded bg-gray-800 text-white" rows="5" required></textarea>
+        <button type="submit" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-6 py-2 rounded">Enviar</button>
+      </form>
+      <p id="respuesta" class="text-center mt-4"></p>
+    </section>
+  </main>
+
+  <footer class="text-center py-4 text-sm bg-gray-950">
+    © 2025 Artmi.ko - Todos los derechos reservados
+  </footer>
+
+  <script>
+    ScrollReveal().reveal('[data-sr]', { distance: '20px', duration: 1000, origin: 'bottom', reset: true });
+
+    function showTab(id) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Inicializar EmailJS con tu Public Key
+    (function() {
+      emailjs.init("vODOsr3j6HkJ2eHys"); // ✅ Reemplaza con tu PUBLIC KEY si es otra
+    })();
+
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('respuesta').innerText = 'Enviando mensaje...';
+
+      emailjs.sendForm('service_avkk6rn', 'template_kyyah9q', this) // 🔁 Cambia 'service_xxxxxx' por tu SERVICE ID real
+        .then(function(response) {
+          document.getElementById('respuesta').innerText = '¡Mensaje enviado con éxito! 😄';
+          document.getElementById('contact-form').reset();
+        }, function(error) {
+          document.getElementById('respuesta').innerText = 'Error al enviar el mensaje. Inténtalo más tarde. 😔';
+          console.error('Error:', error);
+        });
+    });
+  </script>
+</body>
+</html>
